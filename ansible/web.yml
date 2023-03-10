@@ -1,0 +1,8 @@
+---
+# Ansible Web Server Build
+
+- name: Deploy NGINX web Server using ansible.
+  hosts: all
+
+  roles:
+   - web
