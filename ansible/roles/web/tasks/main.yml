@@ -1,13 +1,16 @@
 ---
-
 - name: Install Nginx and other tools.
-  yum: name={{ item }} state=present
-  with_items:
-   - nginx
-   - aws-cli
+  package:
+    name: ["nginx", "aws-cli"]
+    state: present
 
 - name: Starting the nginx service.
-  service: name=nginx state=started enabled=yes
+  service:
+    name: nginx
+    state: started
+    enabled: yes
 
 - name: Copying the index.html template to /usr/share/nginx/html
-  template: src=index.html.j2 dest=/usr/share/nginx/html/index.html
+  template:
+    src: index.html.j2
+    dest: /usr/share/nginx/html/index.html
