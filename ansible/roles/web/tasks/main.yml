@@ -1,5 +1,4 @@
 ---
-
 - name: Check if the operating system is Amazon Linux
   command: cat /etc/os-release
   register: os_info
@@ -10,26 +9,17 @@
     update_cache: yes
   when: "'Debian' in os_info.stdout_lines[0]"
 
-
-
 - name: Install Nginx on Ubuntu/Debian
   apt:
     name: nginx
     state: present
   when: ansible_os_family == 'Debian'
 
-- name: Install Nginx on CentOS/RHEL
-  yum:
-    name: nginx
-    state: present
+- name: Install Nginx on CentOS/RHEL/Amazon Linux
+  command: amazon-linux-extras install nginx1
   when: ansible_os_family == 'RedHat'
 
-
-- name: Install Nginx on Amazon Linux
-    command: amazon-linux-extras install nginx1
-
-
-- name: Install Nginx and other tools.
+- name: Install AWS CLI tools.
   package:
     name: ["aws-cli"]
     state: present
